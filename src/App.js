@@ -15,6 +15,8 @@ export default function App() {
   const [color, setColor] = useState("#fff");
   const [error, setError] = useState();
 
+  const [sidebarOpen, setSidebarOpen] = useState(false)
+
   const pickColor = () => {
     open()
       .then((color) => setColor(color.sRGBHex))
@@ -45,20 +47,29 @@ export default function App() {
     return r * 0.299 + g * 0.587 + b * 0.114 > 186 ? "#000000" : "#FFFFFF";
   }
 
-  function padZero(str, len) {
-    len = len || 2;
-    var zeros = new Array(len).join("0");
-    return (zeros + str).slice(-len);
-  }
   return (
     <div className="App">
-      <button className="button" onClick={() => pickColor()}>
-        Open eyedropper
-      </button>
-      <span style={{ background: color, color: invertColor(color) }}>
-        {color}
-      </span>
-      {!!error && <span>{error.message}</span>}
+     <div className="sidebar--wrapper">
+      <div className="sidebar--inner">
+        <div className="sidebar--content">
+          <div className="sidebar__main">
+            <button className="button" onClick={() => pickColor()}>
+              Open eyedropper
+           </button>
+            <span style={{ background: color, color: invertColor(color) }}>
+              {color}
+            </span>
+            <button className="button" onClick={() => setSidebarOpen(true)}>Open</button>
+            {!!error && <span>{error.message}</span>}
+          </div>
+          sidebarOpen
+          <div className={`sidebar__contextual ${sidebarOpen ? "sidebar__contextual--open" : "sidebar__contextual--closed"}`}>
+
+            <button onClick={() => setSidebarOpen(false)}>Close</button>
+          </div>
+        </div>
+      </div>
+     </div>
       <div className="color-wheel--wrapper">
         <ColorWheel size="750" dotSize="42" data={productColors2} />
         <ColorWheel size="600" dotSize="42" data={productColors1} />
