@@ -5,8 +5,9 @@ const initialState = {
   displayMode: "default",
   sidebarContextual: false,
   wheelStyles: {
-    "--dotBorderRadius": "20%",
+    "--dotBorderRadius": "50%",
     "--someOtherStyle": "cool",
+    "--dotSize": "42px",
   },
 };
 

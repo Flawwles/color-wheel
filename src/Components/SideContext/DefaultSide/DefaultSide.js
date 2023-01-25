@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { invertColor } from "./../../Utils/index";
 import useEyeDropper from "use-eye-dropper";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Slider from "./Controls/Slider";
 
 const DefaultSide = () => {
@@ -46,6 +46,8 @@ const DefaultSide = () => {
     updateWheelStyles({ "--dotSize": dotSize });
   };
 
+  const wheelStyles = useSelector((state) => state.wheelStyles);
+
   return (
     <div>
       <span className="badge--alpha">ALPHA</span>
@@ -61,13 +63,17 @@ const DefaultSide = () => {
         name="Dot radius"
         min="0"
         max="50"
+        unit="%"
+        defaultValue={wheelStyles["--dotBorderRadius"]}
         onChange={(e) => dotBorderRadiusChange(e)}
       />
 
       <Slider
         name="Dot size"
         min="8"
-        max="100"
+        max="200"
+        unit="px"
+        defaultValue={wheelStyles["--dotSize"]}
         onChange={(e) => dotSizeChange(e)}
       />
       <button className="button" onClick={() => pickColor()}>
