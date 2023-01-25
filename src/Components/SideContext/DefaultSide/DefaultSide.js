@@ -2,11 +2,9 @@ import React, { useState } from "react";
 import { invertColor } from "./../../Utils/index";
 import useEyeDropper from "use-eye-dropper";
 
-import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const DefaultSide = () => {
-  const sidebarContextual = useSelector((state) => state.sidebarContextual);
-
   const { open } = useEyeDropper();
   const [color, setColor] = useState("#fff");
   const [error, setError] = useState();
@@ -22,6 +20,13 @@ const DefaultSide = () => {
       });
   };
 
+  const dispatch = useDispatch();
+  const updateSidebarMode = () => {
+    dispatch({
+      type: "updateSidebarMode",
+    });
+  };
+
   return (
     <div>
       <button className="button" onClick={() => pickColor()}>
@@ -29,9 +34,10 @@ const DefaultSide = () => {
       </button>
       <span style={{ background: color, color: invertColor(color) }}>
         {color}
-        {sidebarContextual ? "true" : "false"}
       </span>
-      <button className="button">Open</button>
+      <button className="button" onClick={() => updateSidebarMode()}>
+        Open
+      </button>
       {!!error && <span>{error.message}</span>}
     </div>
   );

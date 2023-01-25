@@ -3,7 +3,7 @@ import { createStore } from "redux";
 const initialState = {
   theme: "day",
   displayMode: "default",
-  sidebarContextual: true,
+  sidebarContextual: false,
 };
 
 const handlers = {
@@ -17,7 +17,7 @@ const handlers = {
   },
   updateSidebarMode: (state) => {
     const { sidebarContextual } = state;
-    const nextState = sidebarContextual ? true : false;
+    const nextState = sidebarContextual ? false : true;
     return {
       ...state,
       sidebarContextual: nextState,
