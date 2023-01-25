@@ -4,6 +4,10 @@ body {
   background: var(--mainBackground);
 }
 
+* {
+  box-sizing: border-box;
+}
+
 .App {
   font-family: sans-serif;
   display: grid;
@@ -14,7 +18,8 @@ body {
   background: #f7f8fa;
 }
 
-.sidebar--inner, .sidebar__contextual {
+.sidebar--inner,
+.sidebar__contextual {
   position: fixed;
   width: 367px;
   background: #f7f8fa;
@@ -73,17 +78,43 @@ body {
 .color-wheel--dot {
   width: var(--dotSize);
   height: var(--dotSize);
-  border-radius: 50%;
+  border-radius: var(--dotBorderRadius);
   transition: all 0.3s ease;
   outline-offset: 2px;
   outline: 2px solid var(--mainBackground);
   background: var(--dotBackground);
-  
 }
 
 .color-wheel--dot:hover {
   outline-offset: 2px;
   outline: 2px solid #797979;
+}
+
+.badge--alpha {
+  font-size: 10px;
+  color: #3f3f3f;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+h1 {
+  font-size: 21px;
+  margin-bottom: 1rem;
+  padding: 0;
+  margin: 0 0 1.45rem;
+  color: inherit;
+  font-weight: 700;
+  text-rendering: optimizeLegibility;
+  line-height: 1.1;
+}
+
+p {
+  font-size: 1rem;
+  line-height: 1.4rem;
+}
+
+.input-range {
+  width: 100%;
 }
 
 * {

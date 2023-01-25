@@ -4,6 +4,10 @@ const initialState = {
   theme: "day",
   displayMode: "default",
   sidebarContextual: false,
+  wheelStyles: {
+    "--dotBorderRadius": "20%",
+    "--someOtherStyle": "cool",
+  },
 };
 
 const handlers = {
@@ -21,6 +25,14 @@ const handlers = {
     return {
       ...state,
       sidebarContextual: nextState,
+    };
+  },
+  updateWheelStyles: (state, payload) => {
+    const key = Object.keys(payload)[0];
+    const value = Object.values(payload)[0];
+    return {
+      ...state,
+      wheelStyles: { ...state.wheelStyles, [key]: value },
     };
   },
 };

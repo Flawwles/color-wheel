@@ -1,7 +1,10 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import ColorWheelDot from "./ColorWheelDot";
 
 const ColorWheel = ({ data, dotSize, size }) => {
+  const wheelStyles = useSelector((state) => state.wheelStyles);
+
   const segmentSize = size / 2;
   const segmentOffset = segmentSize - dotSize / 2;
   const styles = {
@@ -10,6 +13,10 @@ const ColorWheel = ({ data, dotSize, size }) => {
     "--segmentSize": `${segmentSize}px`,
     "--segmentOffset": `${segmentOffset}px`,
   };
+
+  const stylesGlobal = { ...styles, ...wheelStyles };
+
+  console.log("new styles", stylesGlobal);
 
   const dots = data.map((value, index) => (
     <ColorWheelDot
@@ -22,7 +29,7 @@ const ColorWheel = ({ data, dotSize, size }) => {
   ));
 
   return (
-    <div className="color-wheel" style={styles}>
+    <div className="color-wheel" style={stylesGlobal}>
       {dots}
     </div>
   );
