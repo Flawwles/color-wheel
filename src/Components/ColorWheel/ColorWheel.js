@@ -5,11 +5,13 @@ import ColorWheelDot from "./ColorWheelDot";
 const ColorWheel = ({ data, size }) => {
   const wheelStyles = useSelector((state) => state.wheelStyles);
 
-  const dotSize = wheelStyles["--dotSize"].replace(/px/g, "");
-  const segmentSize = size / 2;
-  const segmentOffset = segmentSize - dotSize / 2;
+  const dotSize = parseInt(wheelStyles["--dotSize"].replace(/px/g, ""));
+  const segmentSize = size / 2 + dotSize / 2;
+  const segmentOffset = segmentSize - dotSize / 10;
+
+  const wheelSize = size + dotSize;
   const styles = {
-    "--size": `${size}px`,
+    "--size": `${wheelSize}px`,
     "--dotSize": `${dotSize}px`,
     "--segmentSize": `${segmentSize}px`,
     "--segmentOffset": `${segmentOffset}px`,

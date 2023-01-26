@@ -19,10 +19,10 @@ export default function App() {
       <div className="App">
         <SideContext />
         <div className="color-wheel--wrapper">
-          <ColorWheel size="750" data={productColors2} />
-          <ColorWheel size="600" data={productColors1} />
-          <ColorWheel size="450" data={attentionColors} />
-          <ColorWheel size="300" data={themeColors} />
+          <ColorWheel size={750} data={productColors2} />
+          <ColorWheel size={600} data={productColors1} />
+          <ColorWheel size={450} data={attentionColors} />
+          <ColorWheel size={300} data={themeColors} />
         </div>
       </div>
     </Provider>
