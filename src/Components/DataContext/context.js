@@ -4,10 +4,12 @@ const initialState = {
   theme: "day",
   displayMode: "default",
   sidebarContextual: false,
+  selectedColor: "none",
   wheelStyles: {
     "--dotBorderRadius": "50%",
     "--someOtherStyle": "cool",
     "--dotSize": "42px",
+    wheelStep: 150,
   },
 };
 
@@ -20,20 +22,30 @@ const handlers = {
       theme: nextTheme,
     };
   },
-  updateSidebarMode: (state) => {
-    const { sidebarContextual } = state;
-    const nextState = sidebarContextual ? false : true;
+  updateSidebar: (state) => {
+    // const { sidebarContextual } = state;
+    // const nextState = sidebarContextual ? false : true;
     return {
       ...state,
-      sidebarContextual: nextState,
+      sidebarContextual: true,
+    };
+  },
+  closeSidebar: (state) => {
+    return {
+      ...state,
+      sidebarContextual: false,
     };
   },
   updateWheelStyles: (state, payload) => {
-    const key = Object.keys(payload)[0];
-    const value = Object.values(payload)[0];
     return {
       ...state,
-      wheelStyles: { ...state.wheelStyles, [key]: value },
+      wheelStyles: { ...state.wheelStyles, ...payload },
+    };
+  },
+  setSelectedColor: (state, payload) => {
+    return {
+      ...state,
+      ...payload,
     };
   },
 };

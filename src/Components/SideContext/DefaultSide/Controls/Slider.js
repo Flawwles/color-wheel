@@ -2,8 +2,13 @@ import React from "react";
 import "./Slider.css";
 
 const Slider = ({ name, min, max, onChange, defaultValue, unit }) => {
-  const regex = new RegExp(unit, "g");
-  const defaultValueNoUnit = defaultValue.replace(regex, "");
+  let defaultValueNoUnit;
+  if (unit) {
+    const regex = new RegExp(unit, "g");
+    defaultValueNoUnit = defaultValue.replace(regex, "");
+  } else {
+    defaultValueNoUnit = defaultValue;
+  }
 
   function scaleBetween(unscaledNum, minAllowed, maxAllowed, min, max) {
     return (

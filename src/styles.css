@@ -33,11 +33,15 @@ body {
 .sidebar__contextual {
   top: 0;
   left: -367px;
-  background: blue;
 }
 
 .sidebar__contextual--open {
   left: 0;
+}
+
+.color-swatch {
+  text-align: center;
+  padding: 16px 12px;
 }
 
 .button {
@@ -53,6 +57,7 @@ body {
   justify-content: center;
   min-height: 100vh;
   position: relative;
+  overflow: hidden;
 }
 
 .color-wheel {
@@ -63,7 +68,7 @@ body {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  outline: 1px solid;
+  /* outline: 1px solid; */
 }
 
 .color-wheel--dot--wrapper {

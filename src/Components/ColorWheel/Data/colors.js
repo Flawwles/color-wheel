@@ -164,6 +164,10 @@ const productColors1 = [
     name: "Product colors/New Horizon/Default",
     value: "hsla(44, 100%, 52%, 1)",
   },
+  {
+    name: "Product colors/New Horizon/Hover",
+    value: "hsla(44, 99%, 59%, 1)",
+  },
 ];
 
 const productColors2 = [

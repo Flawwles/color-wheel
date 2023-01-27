@@ -23,9 +23,9 @@ const DefaultSide = () => {
 
   const dispatch = useDispatch();
 
-  const updateSidebarMode = () => {
+  const updateSidebar = () => {
     dispatch({
-      type: "updateSidebarMode",
+      type: "updateSidebar",
     });
   };
 
@@ -44,6 +44,11 @@ const DefaultSide = () => {
   const dotSizeChange = (e) => {
     const dotSize = e.target.value + "px";
     updateWheelStyles({ "--dotSize": dotSize });
+  };
+
+  const wheelStepChange = (e) => {
+    const wheelStep = e.target.value;
+    updateWheelStyles({ wheelStep: wheelStep });
   };
 
   const wheelStyles = useSelector((state) => state.wheelStyles);
@@ -76,13 +81,22 @@ const DefaultSide = () => {
         defaultValue={wheelStyles["--dotSize"]}
         onChange={(e) => dotSizeChange(e)}
       />
+
+      <Slider
+        name="Wheel Step"
+        min="8"
+        max="200"
+        unit=""
+        defaultValue={wheelStyles["wheelStep"]}
+        onChange={(e) => wheelStepChange(e)}
+      />
       <button className="button" onClick={() => pickColor()}>
         Open eyedropper
       </button>
       <span style={{ background: color, color: invertColor(color) }}>
         {color}
       </span>
-      <button className="button" onClick={() => updateSidebarMode()}>
+      <button className="button" onClick={() => updateSidebar()}>
         Open
       </button>
       {!!error && <span>{error.message}</span>}
