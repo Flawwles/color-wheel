@@ -1,30 +1,19 @@
 import { createStore } from "redux";
 
 const initialState = {
-  theme: "day",
-  displayMode: "default",
   sidebarContextual: false,
   selectedColor: "none",
   wheelStyles: {
     "--dotBorderRadius": "50%",
-    "--someOtherStyle": "cool",
-    "--dotSize": "42px",
-    wheelStep: 150,
+    "--dotSize": "38px",
+    wheelStep: 120,
+    dotOutline: false,
+    "--dotOutlineStyle": "none",
   },
 };
 
 const handlers = {
-  toggleTheme: (state) => {
-    const { theme } = state;
-    const nextTheme = theme === "day" ? "night" : "day";
-    return {
-      ...state,
-      theme: nextTheme,
-    };
-  },
   updateSidebar: (state) => {
-    // const { sidebarContextual } = state;
-    // const nextState = sidebarContextual ? false : true;
     return {
       ...state,
       sidebarContextual: true,

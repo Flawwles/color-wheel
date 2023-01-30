@@ -82,18 +82,22 @@ body {
 }
 
 .color-wheel--dot {
+  cursor: pointer;
   width: var(--dotSize);
   height: var(--dotSize);
   border-radius: var(--dotBorderRadius);
-  transition: outline 0.3s ease;
+  transition: box-shadow 0.3s ease;
   outline-offset: 2px;
+  outline: 0px solid var(--dotBackground);
   outline: 2px solid var(--mainBackground);
+  outline: var(--dotOutlineStyle);
   background: var(--dotBackground);
 }
 
 .color-wheel--dot:hover {
-  outline-offset: 2px;
-  outline: 2px solid #797979;
+  box-shadow: 0 0 0 4px var(--dotBackground);
+  /* outline: 2px solid var(--dotBackground); */
+  outline-offset: none;
 }
 
 .badge--alpha {
@@ -120,6 +124,16 @@ p {
 }
 
 .input-range {
+  width: 100%;
+}
+
+.controls {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.controls > div {
   width: 100%;
 }
 
