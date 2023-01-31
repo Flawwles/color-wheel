@@ -19,7 +19,6 @@ body {
 }
 
 .App {
-  font-family: sans-serif;
   display: grid;
   grid-template-columns: 367px 1fr;
 }

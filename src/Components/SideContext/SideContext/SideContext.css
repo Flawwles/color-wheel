@@ -1,0 +1,11 @@
+.color-table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
+.color-table tr {
+  /* background: red; */
+  border-bottom: 1px solid black;
+  padding-bottom: 10px;
+}

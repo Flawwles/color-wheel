@@ -5,22 +5,23 @@ import { Portal } from "@reach/portal";
 
 import "@reach/tooltip/styles.css";
 
-const ColorWheelDot = ({ total, index, name, value }) => {
+const ColorWheelDot = ({ total, index, data }) => {
   const count = index + 1;
   const rotate = (360 / total) * count;
 
   const dispatch = useDispatch();
 
-  const updateSidebar = (e, value) => {
-    console.log("click");
+  const updateSidebar = (e) => {
+    console.log("Update sidebar");
     e.stopPropagation();
     dispatch({
       type: "updateSidebar",
     });
 
+    console.log(data);
     dispatch({
       type: "setSelectedColor",
-      payload: { selectedColor: { value, name } },
+      payload: { selectedColor: data },
     });
   };
 
@@ -30,11 +31,11 @@ const ColorWheelDot = ({ total, index, name, value }) => {
         className="color-wheel--dot--wrapper"
         style={{
           transform: `rotate(${rotate}deg)`,
-          "--dotBackground": `${value}`,
+          "--dotBackground": `${data.value}`,
         }}
       >
         <TriangleTooltip
-          label={name}
+          label={data.name}
           style={{
             background: "hsla(0, 0%, 0%, 0.75)",
             color: "white",
@@ -45,7 +46,7 @@ const ColorWheelDot = ({ total, index, name, value }) => {
         >
           <div
             className="color-wheel--dot"
-            onClick={(e) => updateSidebar(e, value)}
+            onClick={(e) => updateSidebar(e, data.value)}
           />
         </TriangleTooltip>
       </div>

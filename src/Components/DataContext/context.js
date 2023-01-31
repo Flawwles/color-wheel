@@ -2,7 +2,13 @@ import { createStore } from "redux";
 
 const initialState = {
   sidebarContextual: false,
-  selectedColor: "none",
+  selectedColor: {
+    name: "theme-shade-1",
+    value: "hsla(0, 0%, 100%, 1)",
+    type: "hsla",
+    values: { h: 0, s: 0, l: 100, a: 1 },
+    cssVar: "theme-shade-1",
+  },
   wheelStyles: {
     "--dotBorderRadius": "50%",
     "--dotSize": "38px",

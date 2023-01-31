@@ -1,8 +1,9 @@
-import convert from "color-convert";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-
+import { hslToHex } from "../../Utils";
+import "./SideContext.css";
 import DefaultSide from "../DefaultSide/DefaultSide";
+
 const SideContext = () => {
   const dispatch = useDispatch();
   const closeSidebar = () => {
@@ -11,9 +12,22 @@ const SideContext = () => {
     });
   };
   const sidebarContextual = useSelector((state) => state.sidebarContextual);
-  const { name, value } = useSelector((state) => state.selectedColor);
+  const selectedColor = useSelector((state) => state.selectedColor);
 
-  const hexValue = convert.rgb.hex("rgb(64,21,64)");
+  console.log("COLOR", selectedColor);
+
+  const hsla = `${selectedColor.values.h},${selectedColor.values.s}%,${selectedColor.values.l}%,${selectedColor.values.a}`;
+  const cssHsla = `hsla(${hsla})`;
+
+  console.log(hsla);
+
+  console.log(selectedColor.values);
+  const hex = hslToHex(
+    selectedColor.values.h,
+    selectedColor.values.s,
+    selectedColor.values.l
+  );
+  console.log(hex);
 
   return (
     <div className="sidebar--wrapper">
@@ -31,25 +45,37 @@ const SideContext = () => {
             >
               <button onClick={() => closeSidebar()}>Close</button>
 
-              <div className="color-swatch" style={{ background: value }}>
-                {name}
+              <div className="color-swatch" style={{ background: cssHsla }}>
+                {selectedColor.name}
               </div>
-              <table>
+              <table className="color-table">
                 <tr>
                   <td>Name</td>
-                  <td>{name}</td>
-                </tr>
-                <tr>
-                  <td>Var</td>
-                  <td>{name}</td>
+                  <td>..</td>
                 </tr>
                 <tr>
                   <td>hsla</td>
-                  <td>{value}</td>
+                  <td>{cssHsla}</td>
                 </tr>
                 <tr>
                   <td>HEX</td>
-                  <td>{hexValue}</td>
+                  <td>{hex}</td>
+                </tr>
+                <tr>
+                  <td>Hue</td>
+                  <td>{selectedColor.values.h}</td>
+                </tr>
+                <tr>
+                  <td>Saturation</td>
+                  <td>{selectedColor.values.s}</td>
+                </tr>
+                <tr>
+                  <td>Lightness</td>
+                  <td>{selectedColor.values.l}</td>
+                </tr>
+                <tr>
+                  <td>Alpha</td>
+                  <td>{selectedColor.values.a}</td>
                 </tr>
               </table>
             </div>

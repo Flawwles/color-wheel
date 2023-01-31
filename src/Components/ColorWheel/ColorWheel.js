@@ -19,14 +19,8 @@ const ColorWheel = ({ data, size }) => {
 
   const stylesGlobal = { ...styles, ...wheelStyles };
 
-  const dots = data.map((value, index) => (
-    <ColorWheelDot
-      total={data.length}
-      key={index}
-      index={index}
-      name={data[index].name}
-      value={data[index].value}
-    />
+  const dots = data.map((color, index) => (
+    <ColorWheelDot total={data.length} key={index} index={index} data={color} />
   ));
 
   return (
