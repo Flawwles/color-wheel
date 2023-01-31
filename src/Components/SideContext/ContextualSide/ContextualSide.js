@@ -46,7 +46,8 @@ const ContextualSide = () => {
         className="color-swatch"
         style={{ background: cssHsla, color: invertColor(hex) }}
       >
-        {selectedColor.name}
+        Sample
+        {/* {selectedColor.name} */}
       </div>
       <table className="color-table">
         <tbody>
@@ -55,7 +56,15 @@ const ContextualSide = () => {
             <TableCellCopy>{selectedColor.name}</TableCellCopy>
           </tr>
           <tr>
-            <TableHeader>HEX</TableHeader>
+            <TableHeader>CSS Var</TableHeader>
+            <TableCellCopy>{selectedColor.cssVar}</TableCellCopy>
+          </tr>
+          <tr>
+            <TableHeader>CSS Var</TableHeader>
+            <TableCellCopy>var({selectedColor.cssVar})</TableCellCopy>
+          </tr>
+          <tr>
+            <TableHeader>Hex</TableHeader>
             <TableCellCopy>{hex}</TableCellCopy>
           </tr>
           <tr>
