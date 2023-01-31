@@ -27,6 +27,11 @@ const ContextualSide = () => {
     });
   };
 
+  const TableHeader = ({ children }) => (
+    <th className="color-table__header">
+      <span>{children}</span>
+    </th>
+  );
   const TableCellCopy = ({ children }) => {
     return (
       <td onDoubleClick={() => alert("COPY TO CLIPBOARD", { children })}>
@@ -46,31 +51,31 @@ const ContextualSide = () => {
       <table className="color-table">
         <tbody>
           <tr>
-            <th>Name</th>
+            <TableHeader>Name</TableHeader>
             <TableCellCopy>{selectedColor.name}</TableCellCopy>
           </tr>
           <tr>
-            <th>HEX</th>
+            <TableHeader>HEX</TableHeader>
             <TableCellCopy>{hex}</TableCellCopy>
           </tr>
           <tr>
-            <th>hsla</th>
+            <TableHeader>hsla</TableHeader>
             <TableCellCopy>{cssHsla}</TableCellCopy>
           </tr>
           <tr>
-            <th>Hue</th>
+            <TableHeader>Hue</TableHeader>
             <TableCellCopy>{selectedColor.values.h}</TableCellCopy>
           </tr>
           <tr>
-            <th>Saturation</th>
+            <TableHeader>Saturation</TableHeader>
             <TableCellCopy>{selectedColor.values.s}</TableCellCopy>
           </tr>
           <tr>
-            <th>Lightness</th>
+            <TableHeader>Lightness</TableHeader>
             <TableCellCopy>{selectedColor.values.l}</TableCellCopy>
           </tr>
           <tr>
-            <th>Alpha</th>
+            <TableHeader>Alpha</TableHeader>
             <TableCellCopy>{selectedColor.values.a}</TableCellCopy>
           </tr>
         </tbody>
