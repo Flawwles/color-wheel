@@ -25,6 +25,8 @@ const ColorWheelDot = ({ total, index, data }) => {
     });
   };
 
+  const copyToClipboard = (e) => alert("COPY TO CLIPBOARD HERE", e);
+
   return (
     <>
       <div
@@ -47,6 +49,7 @@ const ColorWheelDot = ({ total, index, data }) => {
           <div
             className="color-wheel--dot"
             onClick={(e) => updateSidebar(e, data.value)}
+            onDoubleClick={(e) => copyToClipboard(e)}
           />
         </TriangleTooltip>
       </div>

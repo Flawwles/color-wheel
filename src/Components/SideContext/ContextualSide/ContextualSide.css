@@ -1,0 +1,32 @@
+.color-swatch {
+  text-align: center;
+  padding: 16px 12px;
+  border-radius: 4px;
+}
+
+.color-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.color-table tr {
+  /* background: red; */
+  border-bottom: 1px solid #efefef;
+}
+
+.color-table td {
+  user-select: all;
+  font-family: monospace;
+  font-size: 1rem;
+}
+
+.color-table td,
+.color-table th {
+  padding: 18px 0;
+}
+
+.color-table th {
+  text-align: left;
+  color: #7c7a7a;
+  padding-right: 8px;
+}

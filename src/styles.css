@@ -48,11 +48,6 @@ body {
   left: 0;
 }
 
-.color-swatch {
-  text-align: center;
-  padding: 16px 12px;
-}
-
 .button {
   background: #3c7bcd;
   border: 1px solid #3c7bcd;

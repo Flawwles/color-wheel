@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { hslToHex } from "../../Utils";
+import { hslToHex, invertColor } from "../../Utils";
+import "./ContextualSide.css";
 
 const ContextualSide = () => {
   const selectedColor = useSelector((state) => state.selectedColor);
@@ -25,43 +26,56 @@ const ContextualSide = () => {
       type: "closeSidebar",
     });
   };
+
+  const TableCellCopy = ({ children }) => {
+    return (
+      <td onDoubleClick={() => alert("COPY TO CLIPBOARD", { children })}>
+        {children}
+      </td>
+    );
+  };
   return (
     <div>
       <button onClick={() => closeSidebar()}>Close</button>
-
-      <div className="color-swatch" style={{ background: cssHsla }}>
+      <div
+        className="color-swatch"
+        style={{ background: cssHsla, color: invertColor(hex) }}
+      >
         {selectedColor.name}
       </div>
       <table className="color-table">
-        <tr>
-          <td>Name</td>
-          <td>..</td>
-        </tr>
-        <tr>
-          <td>hsla</td>
-          <td>{cssHsla}</td>
-        </tr>
-        <tr>
-          <td>HEX</td>
-          <td>{hex}</td>
-        </tr>
-        <tr>
-          <td>Hue</td>
-          <td>{selectedColor.values.h}</td>
-        </tr>
-        <tr>
-          <td>Saturation</td>
-          <td>{selectedColor.values.s}</td>
-        </tr>
-        <tr>
-          <td>Lightness</td>
-          <td>{selectedColor.values.l}</td>
-        </tr>
-        <tr>
-          <td>Alpha</td>
-          <td>{selectedColor.values.a}</td>
-        </tr>
+        <tbody>
+          <tr>
+            <th>Name</th>
+            <TableCellCopy>{selectedColor.name}</TableCellCopy>
+          </tr>
+          <tr>
+            <th>HEX</th>
+            <TableCellCopy>{hex}</TableCellCopy>
+          </tr>
+          <tr>
+            <th>hsla</th>
+            <TableCellCopy>{cssHsla}</TableCellCopy>
+          </tr>
+          <tr>
+            <th>Hue</th>
+            <TableCellCopy>{selectedColor.values.h}</TableCellCopy>
+          </tr>
+          <tr>
+            <th>Saturation</th>
+            <TableCellCopy>{selectedColor.values.s}</TableCellCopy>
+          </tr>
+          <tr>
+            <th>Lightness</th>
+            <TableCellCopy>{selectedColor.values.l}</TableCellCopy>
+          </tr>
+          <tr>
+            <th>Alpha</th>
+            <TableCellCopy>{selectedColor.values.a}</TableCellCopy>
+          </tr>
+        </tbody>
       </table>
+      Double click color dot to copy X to clipboard
     </div>
   );
 };
