@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { TooltipPopup, useTooltip } from "@reach/tooltip";
 import { Portal } from "@reach/portal";
@@ -6,6 +6,17 @@ import { Portal } from "@reach/portal";
 import "@reach/tooltip/styles.css";
 
 const ColorWheelDot = ({ total, index, data }) => {
+  const [selected, setSelected] = useState(false);
+
+  const classes = `color-wheel--dot color-wheel--dot--selected-${
+    selected ? "true" : "false"
+  }`;
+
+  useEffect(() => {
+    const timer = setTimeout(() => setSelected(false), 3000);
+    return () => clearTimeout(timer);
+  }, [selected]);
+
   const count = index + 1;
   const rotate = (360 / total) * count;
 
@@ -25,7 +36,11 @@ const ColorWheelDot = ({ total, index, data }) => {
     });
   };
 
-  const copyToClipboard = (e) => alert("COPY TO CLIPBOARD HERE", e);
+  const copyToClipboard = (e, data) => {
+    setSelected(true);
+    const { name } = data;
+    navigator.clipboard.writeText(name);
+  };
 
   return (
     <>
@@ -47,9 +62,9 @@ const ColorWheelDot = ({ total, index, data }) => {
           }}
         >
           <div
-            className="color-wheel--dot"
+            className={classes}
             onClick={(e) => updateSidebar(e, data.value)}
-            onDoubleClick={(e) => copyToClipboard(e)}
+            onDoubleClick={(e) => copyToClipboard(e, data)}
           />
         </TriangleTooltip>
       </div>
