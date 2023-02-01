@@ -104,16 +104,6 @@ body {
   outline-offset: none;
 }
 
-.color-wheel--dot--selected-true:after {
-  /* background: green; */
-  width: var(--dotSize);
-  height: var(--dotSize);
-  content: "✅";
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .badge--alpha {
   font-size: 10px;
   color: #3f3f3f;
