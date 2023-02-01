@@ -20,6 +20,12 @@
   font-family: monospace;
 }
 
+.color-table td {
+  content: "";
+  width: 100%;
+  height: 100%;
+}
+
 .color-table td,
 .color-table th {
   padding: 18px 0;

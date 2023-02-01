@@ -16,6 +16,7 @@ const initialState = {
     dotOutline: false,
     "--dotOutlineStyle": "none",
   },
+  tooltipDisplays: "name",
 };
 
 const handlers = {

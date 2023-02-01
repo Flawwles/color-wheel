@@ -523,7 +523,7 @@ const productColors2 = [
     name: "deep-thought-active",
     value: "hsla(0, 0%, 80%, 1)",
     type: "hsla",
-    values: { h: 0, s: 0, l: 80, a: 1 },
+    values: { h: 257, s: 0, l: 80, a: 1 },
     cssVar: "--color-product-deep-thought--active",
   },
   {

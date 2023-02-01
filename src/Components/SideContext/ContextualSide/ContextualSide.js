@@ -1,7 +1,9 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+// import useTimeout from "../../Timeout/Timeout";
 import { hslToHex, invertColor } from "../../Utils";
 import "./ContextualSide.css";
+import TableCellCopy from "./TableCellCopy";
 
 const ContextualSide = () => {
   const selectedColor = useSelector((state) => state.selectedColor);
@@ -32,13 +34,7 @@ const ContextualSide = () => {
       <span>{children}</span>
     </th>
   );
-  const TableCellCopy = ({ children }) => {
-    return (
-      <td onDoubleClick={() => alert("COPY TO CLIPBOARD", { children })}>
-        {children}
-      </td>
-    );
-  };
+
   return (
     <div>
       <button onClick={() => closeSidebar()}>Close</button>
@@ -61,7 +57,7 @@ const ContextualSide = () => {
           </tr>
           <tr>
             <TableHeader>CSS Var</TableHeader>
-            <TableCellCopy>var({selectedColor.cssVar})</TableCellCopy>
+            <TableCellCopy>{`var(${selectedColor.cssVar})`}</TableCellCopy>
           </tr>
           <tr>
             <TableHeader>Hex</TableHeader>
@@ -89,7 +85,11 @@ const ContextualSide = () => {
           </tr>
         </tbody>
       </table>
-      Double click color dot to copy X to clipboard
+      Double click color dot copies... <br />
+      <select style={{ width: "100%" }}>
+        <option value="1">Name ({selectedColor.name})</option>
+        <option value="1">CSS Var ({selectedColor.cssVar})</option>
+      </select>
     </div>
   );
 };
