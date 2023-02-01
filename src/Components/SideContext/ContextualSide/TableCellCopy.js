@@ -1,22 +1,29 @@
+import { Portal } from "@reach/portal";
 import React, { useEffect, useState } from "react";
 
-function copyToClipboard(setMessage, children) {
-  setMessage("✅ Copied to clipboard");
-  navigator.clipboard.writeText(children);
-}
-
 const TableCellCopy = ({ children }) => {
-  const [message, setMessage] = useState(children);
+  const copyToClipboard = (children) => {
+    navigator.clipboard.writeText(children);
+    setShowMessage(true);
+  };
+  const [showMessage, setShowMessage] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => setMessage(children), 3000);
+    const timer = setTimeout(() => setShowMessage(false), 3000);
     return () => clearTimeout(timer);
-  }, [message]);
+  }, [showMessage]);
 
   return (
-    <td onDoubleClick={() => copyToClipboard(setMessage, children)}>
-      {message}
-    </td>
+    <>
+      <td onDoubleClick={() => copyToClipboard(children)}>{children}</td>
+      {showMessage ? (
+        <Portal>
+          <div className="notification--wrapper">
+            <div className="notification">Copied to clipboard</div>
+          </div>
+        </Portal>
+      ) : null}
+    </>
   );
 };
 

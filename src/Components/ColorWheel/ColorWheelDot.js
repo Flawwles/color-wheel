@@ -6,16 +6,12 @@ import { Portal } from "@reach/portal";
 import "@reach/tooltip/styles.css";
 
 const ColorWheelDot = ({ total, index, data }) => {
-  const [selected, setSelected] = useState(false);
-
-  const classes = `color-wheel--dot color-wheel--dot--selected-${
-    selected ? "true" : "false"
-  }`;
+  const [showMessage, setShowMessage] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => setSelected(false), 3000);
+    const timer = setTimeout(() => setShowMessage(false), 3000);
     return () => clearTimeout(timer);
-  }, [selected]);
+  }, [showMessage]);
 
   const count = index + 1;
   const rotate = (360 / total) * count;
@@ -29,17 +25,16 @@ const ColorWheelDot = ({ total, index, data }) => {
       type: "updateSidebar",
     });
 
-    console.log(data);
     dispatch({
       type: "setSelectedColor",
       payload: { selectedColor: data },
     });
   };
 
-  const copyToClipboard = (e, data) => {
-    setSelected(true);
-    const { name } = data;
-    navigator.clipboard.writeText(name);
+  const copyToClipboard = (data) => {
+    setShowMessage(true);
+
+    navigator.clipboard.writeText(data.name);
   };
 
   return (
@@ -62,12 +57,19 @@ const ColorWheelDot = ({ total, index, data }) => {
           }}
         >
           <div
-            className={classes}
+            className="color-wheel--dot"
             onClick={(e) => updateSidebar(e, data.value)}
-            onDoubleClick={(e) => copyToClipboard(e, data)}
+            onDoubleClick={() => copyToClipboard(data)}
           />
         </TriangleTooltip>
       </div>
+      {showMessage ? (
+        <Portal>
+          <div className="notification--wrapper">
+            <div className="notification">Copied {data.name} to clipboard</div>
+          </div>
+        </Portal>
+      ) : null}
     </>
   );
 };

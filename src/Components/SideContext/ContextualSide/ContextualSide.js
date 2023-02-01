@@ -7,21 +7,13 @@ import TableCellCopy from "./TableCellCopy";
 
 const ContextualSide = () => {
   const selectedColor = useSelector((state) => state.selectedColor);
-
-  console.log("COLOR", selectedColor);
-
   const hsla = `${selectedColor.values.h},${selectedColor.values.s}%,${selectedColor.values.l}%,${selectedColor.values.a}`;
   const cssHsla = `hsla(${hsla})`;
-
-  console.log(hsla);
-
-  console.log(selectedColor.values);
   const hex = hslToHex(
     selectedColor.values.h,
     selectedColor.values.s,
     selectedColor.values.l
   );
-  console.log(hex);
   const dispatch = useDispatch();
   const closeSidebar = () => {
     dispatch({
