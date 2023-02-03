@@ -1,11 +1,15 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import useEyeDropper from "use-eye-dropper";
 
 import { Button, IconButton } from "@brandwatch/axiom-components";
 import { useDispatch, useSelector } from "react-redux";
 import { hexToHue } from "../../../Utils";
+import { Portal } from "@reach/portal";
 
 const EyeDropper = () => {
+  const [showMessage, setShowMessage] = useState(false);
+  const [message, setMessage] = useState("No matching colors found");
+
   const searchForColor = useSelector((state) => state.searchForColor);
   const masterColorList = useSelector((state) => state.masterColorList);
 
@@ -19,22 +23,25 @@ const EyeDropper = () => {
   };
 
   const findMatch = (searchFor) => {
-    console.log(searchFor);
     const searchHue = hexToHue(searchFor);
-    console.log(searchHue);
 
     const findMatchingColor = masterColorList.filter(
       (color) => color.data.values.h === searchHue
     );
     findMatchingColor.forEach((matchingColor) => {
-      console.log("looking for...", searchFor);
-      // console.log("Matching", matchingColor.div.current);
       matchingColor.div.current.className =
         "color-wheel--dot--wrapper matched-color";
     });
     colorChip.current?.lastElementChild?.scrollIntoView();
     console.log(findMatchingColor.length);
+    setMessage(`Found ${findMatchingColor.length} matches`);
+    setShowMessage(true);
   };
+
+  useEffect(() => {
+    const timer = setTimeout(() => setShowMessage(false), 3000);
+    return () => clearTimeout(timer);
+  }, [showMessage]);
 
   const { open } = useEyeDropper();
   const [error, setError] = useState();
@@ -111,6 +118,14 @@ const EyeDropper = () => {
         )}
         {!!error && <span>{error.message}</span>}
       </div>
+
+      {showMessage ? (
+        <Portal>
+          <div className="notification--wrapper">
+            <div className="notification">{message}</div>
+          </div>
+        </Portal>
+      ) : null}
     </div>
   );
 };

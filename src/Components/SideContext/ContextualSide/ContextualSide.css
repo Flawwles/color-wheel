@@ -45,6 +45,7 @@
 }
 
 .notification--wrapper {
+  pointer-events: none;
   color: #fff;
   position: absolute;
   bottom: 24px;
@@ -56,6 +57,7 @@
 }
 
 .notification {
+  pointer-events: all;
   background: black;
   border-radius: 8px;
   padding: 12px 16px;

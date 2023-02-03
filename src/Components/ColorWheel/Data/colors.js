@@ -151,7 +151,7 @@ const attentionColors = [
     name: "warning-active",
     type: "hsla",
     values: { h: 25, s: 96, l: 53, a: 1 },
-    cssVar: "--color-ui-success--active",
+    cssVar: "--color-ui-warning--active",
   },
   {
     name: "warning-default",
