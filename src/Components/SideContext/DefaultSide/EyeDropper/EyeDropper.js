@@ -1,18 +1,14 @@
 import React, { useRef, useState } from "react";
-// import { invertColor } from "./../../../Utils/index";
 import useEyeDropper from "use-eye-dropper";
 
 import { Button, IconButton } from "@brandwatch/axiom-components";
 import { useDispatch, useSelector } from "react-redux";
+import { hexToHue } from "../../../Utils";
 
 const EyeDropper = () => {
   const searchForColor = useSelector((state) => state.searchForColor);
-  // const masterColorList = useSelector((state) => state.masterColorList);
+  const masterColorList = useSelector((state) => state.masterColorList);
 
-  // const findMatchingColor = masterColorList.find(
-  //   (color) => color.values.h === 200
-  // );
-  // console.log(findMatchingColor);
   const dispatch = useDispatch();
 
   const setSearchForColor = (data) => {
@@ -22,7 +18,24 @@ const EyeDropper = () => {
     });
   };
 
-  console.log(searchForColor);
+  const findMatch = (searchFor) => {
+    console.log(searchFor);
+    const searchHue = hexToHue(searchFor);
+    console.log(searchHue);
+
+    const findMatchingColor = masterColorList.filter(
+      (color) => color.data.values.h === searchHue
+    );
+    findMatchingColor.forEach((matchingColor) => {
+      console.log("looking for...", searchFor);
+      // console.log("Matching", matchingColor.div.current);
+      matchingColor.div.current.className =
+        "color-wheel--dot--wrapper matched-color";
+    });
+    colorChip.current?.lastElementChild?.scrollIntoView();
+    console.log(findMatchingColor.length);
+  };
+
   const { open } = useEyeDropper();
   const [error, setError] = useState();
 
@@ -32,9 +45,9 @@ const EyeDropper = () => {
     open()
       .then((color) => {
         setSearchForColor(color.sRGBHex);
+        findMatch(color.sRGBHex);
       })
       .catch((e) => {
-        console.log(e);
         if (!e.canceled) setError(e);
       });
   };
@@ -42,6 +55,9 @@ const EyeDropper = () => {
   const clearEyedropper = (e) => {
     e.stopPropagation();
     setSearchForColor();
+    masterColorList.forEach(
+      (item) => (item.div.current.className = "color-wheel--dot--wrapper")
+    );
   };
   return (
     <div ref={colorChip}>

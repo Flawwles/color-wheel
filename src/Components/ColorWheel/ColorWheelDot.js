@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { TooltipPopup, useTooltip } from "@reach/tooltip";
 import { Portal } from "@reach/portal";
 
@@ -20,17 +20,12 @@ const ColorWheelDot = ({ total, index, data }) => {
     });
   }, []);
 
-  const masterColorList = useSelector((state) => state.masterColorList);
-
-  console.log(masterColorList);
-
   const count = index + 1;
   const rotate = (360 / total) * count;
 
   const dispatch = useDispatch();
 
   const updateSidebar = (e) => {
-    console.log("Update sidebar");
     e.stopPropagation();
     dispatch({
       type: "updateSidebar",

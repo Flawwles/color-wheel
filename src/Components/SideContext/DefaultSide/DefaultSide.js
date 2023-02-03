@@ -36,7 +36,6 @@ const DefaultSide = () => {
   };
 
   const toggleTheme = () => {
-    console.log("theme");
     dispatch({
       type: "toggleTheme",
     });
@@ -50,7 +49,6 @@ const DefaultSide = () => {
     }
     const nextValue = value ? true : false;
     const dotStyle = nextValue ? "2px solid #efefef" : "none";
-    console.log(nextValue);
     updateWheelStyles({
       dotOutline: nextValue,
       "--dotOutlineStyle": dotStyle,

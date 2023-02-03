@@ -32,7 +32,6 @@ const ContextualSide = () => {
     .substr(-2)
     .toUpperCase();
   const hex8 = selectedColor.values.a == 1 ? hex : hex + hexOpacity;
-  console.log(hex8);
   const dispatch = useDispatch();
   const closeSidebar = () => {
     dispatch({

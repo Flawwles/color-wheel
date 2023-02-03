@@ -89,6 +89,14 @@ body {
   /* background: var(--dotBackground); */
 }
 
+.color-wheel--wrapper:has(.matched-color) .color-wheel--dot {
+  opacity: 0.3;
+}
+
+.color-wheel--wrapper .matched-color .color-wheel--dot {
+  opacity: 1;
+}
+
 .color-wheel--dot {
   cursor: pointer;
   width: var(--dotSize);
