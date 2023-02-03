@@ -15,7 +15,12 @@ const TableCellCopy = ({ children }) => {
 
   return (
     <>
-      <td onDoubleClick={() => copyToClipboard(children)}>{children}</td>
+      <div
+        className="table-cell-copy"
+        onDoubleClick={() => copyToClipboard(children)}
+      >
+        {children}
+      </div>
       {showMessage ? (
         <Portal>
           <div className="notification--wrapper">

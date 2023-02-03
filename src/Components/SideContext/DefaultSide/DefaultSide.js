@@ -1,34 +1,17 @@
-import React, { useState } from "react";
-import { invertColor } from "./../../Utils/index";
-import useEyeDropper from "use-eye-dropper";
+import React from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import Slider from "./Controls/Slider";
-import Toggle from "./Controls/Toggle";
+import ToggleControl from "./Controls/ToggleControl";
+import { Button, ButtonIcon, Separator } from "@brandwatch/axiom-components";
+import EyeDropper from "./EyeDropper/EyeDropper";
 
 const DefaultSide = () => {
-  const { open } = useEyeDropper();
-  const [color, setColor] = useState();
-  const [error, setError] = useState();
-
-  const pickColor = () => {
-    open()
-      .then((color) => setColor(color.sRGBHex))
-      .catch((e) => {
-        console.log(e);
-        // Ensures component is still mounted
-        // before calling setState
-        if (!e.canceled) setError(e);
-      });
-  };
+  const theme = useSelector((state) => state.theme);
+  const nextTheme = theme === "day" ? "night" : "day";
+  const iconTheme = theme === "day" ? "moon" : "sun";
 
   const dispatch = useDispatch();
-
-  const updateSidebar = () => {
-    dispatch({
-      type: "updateSidebar",
-    });
-  };
 
   const updateWheelStyles = (data) => {
     dispatch({
@@ -50,6 +33,13 @@ const DefaultSide = () => {
   const wheelStepChange = (e) => {
     const wheelStep = e.target.value;
     updateWheelStyles({ wheelStep: wheelStep });
+  };
+
+  const toggleTheme = () => {
+    console.log("theme");
+    dispatch({
+      type: "toggleTheme",
+    });
   };
 
   const dotOutlineChange = (e) => {
@@ -77,7 +67,8 @@ const DefaultSide = () => {
         View the axiom color design values in a wheel and additional tools to
         make working with the colors easier.
       </p>
-      <hr />
+
+      <Separator borderStyle="dotted" />
 
       <h3>Wheel controls</h3>
       <section className="controls">
@@ -108,29 +99,28 @@ const DefaultSide = () => {
           onChange={(e) => wheelStepChange(e)}
         />
 
-        <Toggle
+        <ToggleControl
           name="Dot outline"
+          help="Words with large dots only"
           defaultValue={wheelStyles["dotOutline"]}
           onChange={(e) => dotOutlineChange(e)}
         />
       </section>
 
-      <hr />
-      <button className="button" onClick={() => pickColor()}>
-        Open eyedropper
-      </button>
-      {color ? (
-        <span style={{ background: color, color: invertColor(color) }}>
-          {color}
-        </span>
-      ) : (
-        ""
-      )}
-
-      <button className="button" onClick={() => updateSidebar()}>
-        Open
-      </button>
-      {!!error && <span>{error.message}</span>}
+      <Separator borderStyle="dotted" />
+      <h3>Theme settings</h3>
+      <Button
+        variant="secondary"
+        className="button"
+        onClick={() => toggleTheme()}
+      >
+        <ButtonIcon name={iconTheme} size="16" /> {nextTheme} theme
+      </Button>
+      <br />
+      <br />
+      <Separator borderStyle="dotted" />
+      <h3>Find color from anywhere...</h3>
+      <EyeDropper />
     </div>
   );
 };

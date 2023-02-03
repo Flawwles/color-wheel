@@ -8,16 +8,16 @@
 }
 
 .slider-second-row--direct-input input {
-  background: red;
   max-width: 4rem;
   background: transparent;
   outline: none;
   border: none;
   padding: 8px 0px;
+  color: var(--color-theme-text--subtle);
 }
 
 .slider-second-row--direct-input:hover input {
-  background: #efefef;
+  background: var(--color-theme-background--shade-3);
   outline: 1px;
   border: none;
 }

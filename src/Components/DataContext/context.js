@@ -1,6 +1,7 @@
 import { createStore } from "redux";
 
 const initialState = {
+  theme: "day",
   sidebarContextual: false,
   selectedColor: {
     name: "theme-shade-1",
@@ -11,12 +12,14 @@ const initialState = {
   },
   wheelStyles: {
     "--dotBorderRadius": "50%",
-    "--dotSize": "38px",
-    wheelStep: 120,
+    "--dotSize": "48px",
+    wheelStep: 150,
     dotOutline: false,
     "--dotOutlineStyle": "none",
   },
   tooltipDisplays: "name",
+  searchForColor: "",
+  masterColorList: [],
 };
 
 const handlers = {
@@ -42,6 +45,28 @@ const handlers = {
     return {
       ...state,
       ...payload,
+    };
+  },
+  setSearchForColor: (state, payload) => {
+    return {
+      ...state,
+      searchForColor: payload,
+    };
+  },
+  updateMasterColorList: (state, payload) => {
+    const { masterColorList } = state;
+    const newList = masterColorList.concat(payload);
+    return {
+      ...state,
+      masterColorList: newList,
+    };
+  },
+  toggleTheme: (state) => {
+    const { theme } = state;
+    const nextTheme = theme === "day" ? "night" : "day";
+    return {
+      ...state,
+      theme: nextTheme,
     };
   },
 };

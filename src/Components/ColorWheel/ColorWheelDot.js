@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { TooltipPopup, useTooltip } from "@reach/tooltip";
 import { Portal } from "@reach/portal";
 
@@ -7,11 +7,22 @@ import "@reach/tooltip/styles.css";
 
 const ColorWheelDot = ({ total, index, data }) => {
   const [showMessage, setShowMessage] = useState(false);
-
+  const colorRef = useRef();
   useEffect(() => {
     const timer = setTimeout(() => setShowMessage(false), 3000);
     return () => clearTimeout(timer);
   }, [showMessage]);
+
+  useEffect(() => {
+    dispatch({
+      type: "updateMasterColorList",
+      payload: { data, div: colorRef },
+    });
+  }, []);
+
+  const masterColorList = useSelector((state) => state.masterColorList);
+
+  console.log(masterColorList);
 
   const count = index + 1;
   const rotate = (360 / total) * count;
@@ -33,17 +44,17 @@ const ColorWheelDot = ({ total, index, data }) => {
 
   const copyToClipboard = (data) => {
     setShowMessage(true);
-
     navigator.clipboard.writeText(data.name);
   };
 
   return (
     <>
       <div
+        ref={colorRef}
         className="color-wheel--dot--wrapper"
         style={{
           transform: `rotate(${rotate}deg)`,
-          "--dotBackground": `${data.value}`,
+          "--dotBackground": `var(${data.cssVar}, ${data.value})`,
         }}
       >
         <TriangleTooltip
@@ -85,22 +96,13 @@ const centered = (triggerRect, tooltipRect) => {
 };
 
 const TriangleTooltip = ({ children, label, "aria-label": ariaLabel }) => {
-  // get the props from useTooltip
   const [trigger, tooltip] = useTooltip();
-
-  // destructure off what we need to position the triangle
   const { isVisible, triggerRect } = tooltip;
-
   return (
     <>
       {React.cloneElement(children, trigger)}
 
       {isVisible && (
-        // The Triangle. We position it relative to the trigger, not the popup
-        // so that collisions don't have a triangle pointing off to nowhere.
-        // Using a Portal may seem a little extreme, but we can keep the
-        // positioning logic simpler here instead of needing to consider
-        // the popup's position relative to the trigger and collisions
         <Portal>
           <div
             style={{
@@ -123,6 +125,7 @@ const TriangleTooltip = ({ children, label, "aria-label": ariaLabel }) => {
         aria-label={ariaLabel}
         style={{
           background: "black",
+          fontSize: "1rem",
           color: "white",
           border: "none",
           borderRadius: "3px",
