@@ -1,0 +1,25 @@
+.sidebar--wrapper {
+  background: var(--color-theme-background--shade-4);
+}
+
+.sidebar--inner,
+.sidebar__contextual {
+  position: fixed;
+  width: 367px;
+  background: var(--color-theme-background--shade-2);
+  color: var(--color-theme-text);
+  padding: 24px;
+  min-height: 100vh;
+  height: 100%;
+  overflow: auto;
+  transition: left 0.3s ease;
+}
+
+.sidebar__contextual {
+  top: 0;
+  left: -367px;
+}
+
+.sidebar__contextual--open {
+  left: 0;
+}

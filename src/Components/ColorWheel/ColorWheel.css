@@ -1,0 +1,57 @@
+.color-wheel--wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.color-wheel {
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  /* outline: 1px solid; */
+}
+
+.color-wheel--dot--wrapper {
+  height: var(--segmentSize);
+  margin-left: var(--segmentOffset);
+  /* width: var(--dotSize); */
+  width: 24px;
+  transform-origin: center bottom;
+  position: absolute;
+  /* background: var(--dotBackground); */
+}
+
+.color-wheel--wrapper:has(.matched-color) .color-wheel--dot {
+  opacity: 0.3;
+}
+
+.color-wheel--wrapper .matched-color .color-wheel--dot {
+  opacity: 1;
+}
+
+.color-wheel--dot {
+  cursor: pointer;
+  width: var(--dotSize);
+  height: var(--dotSize);
+  border-radius: var(--dotBorderRadius);
+  transition: box-shadow 0.3s ease;
+  outline-offset: 2px;
+  outline: 0px solid var(--color-theme-background--shade-1);
+  outline: 2px solid var(--color-theme-background--shade-1);
+  outline: var(--dotOutlineStyle);
+  outline-color: var(--color-theme-background--shade-3);
+  background: var(--dotBackground);
+}
+
+.color-wheel--dot:hover {
+  box-shadow: 0 0 0 4px var(--dotBackground);
+  /* outline: 2px solid var(--dotBackground); */
+  outline-offset: none;
+}

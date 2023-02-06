@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import useWindowDimensions from "../Utils/windowsize";
 import ColorWheel from "./ColorWheel";
+import "./ColorWheel.css";
 import {
   themeColors,
   attentionColors,

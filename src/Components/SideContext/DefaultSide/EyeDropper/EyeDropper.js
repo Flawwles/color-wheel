@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import useEyeDropper from "use-eye-dropper";
-
+import "./EyeDropper.css";
 import { Button, IconButton } from "@brandwatch/axiom-components";
 import { useDispatch, useSelector } from "react-redux";
 import { hexToHue } from "../../../Utils";
@@ -8,7 +8,10 @@ import { Portal } from "@reach/portal";
 
 const EyeDropper = () => {
   const [showMessage, setShowMessage] = useState(false);
+  const { open } = useEyeDropper();
+  const [error, setError] = useState();
   const [message, setMessage] = useState("No matching colors found");
+  const colorChip = useRef(null);
 
   const searchForColor = useSelector((state) => state.searchForColor);
   const masterColorList = useSelector((state) => state.masterColorList);
@@ -24,7 +27,6 @@ const EyeDropper = () => {
 
   const findMatch = (searchFor) => {
     const searchHue = hexToHue(searchFor);
-
     const findMatchingColor = masterColorList.filter(
       (color) => color.data.values.h === searchHue
     );
@@ -33,8 +35,8 @@ const EyeDropper = () => {
         "color-wheel--dot--wrapper matched-color";
     });
     colorChip.current?.lastElementChild?.scrollIntoView();
-    console.log(findMatchingColor.length);
-    setMessage(`Found ${findMatchingColor.length} matches`);
+
+    setMessage(`Found ${findMatchingColor.length / 2} matches`);
     setShowMessage(true);
   };
 
@@ -43,10 +45,20 @@ const EyeDropper = () => {
     return () => clearTimeout(timer);
   }, [showMessage]);
 
-  const { open } = useEyeDropper();
-  const [error, setError] = useState();
+  const escFunction = useCallback((event) => {
+    if (event.key === "Escape") {
+      console.log("CLOSE");
+      clearEyedropper();
+    }
+  }, []);
 
-  const colorChip = useRef(null);
+  useEffect(() => {
+    document.addEventListener("keydown", escFunction, false);
+
+    return () => {
+      document.removeEventListener("keydown", escFunction, false);
+    };
+  }, [escFunction]);
 
   const pickColor = () => {
     open()
@@ -60,7 +72,9 @@ const EyeDropper = () => {
   };
 
   const clearEyedropper = (e) => {
-    e.stopPropagation();
+    if (e) {
+      e.stopPropagation();
+    }
     setSearchForColor();
     masterColorList.forEach(
       (item) => (item.div.current.className = "color-wheel--dot--wrapper")
@@ -74,7 +88,7 @@ const EyeDropper = () => {
       <p>Open the eye dropper, select it and find its cloest match.</p>
 
       <Button
-        className="button"
+        className="button--full-width"
         variant="secondary"
         onClick={() => pickColor()}
       >

@@ -99,7 +99,7 @@ const DefaultSide = () => {
 
         <ToggleControl
           name="Dot outline"
-          help="Words with large dots only"
+          help="Works with large dots only"
           defaultValue={wheelStyles["dotOutline"]}
           onChange={(e) => dotOutlineChange(e)}
         />
@@ -109,7 +109,7 @@ const DefaultSide = () => {
       <h3>Theme settings</h3>
       <Button
         variant="secondary"
-        className="button"
+        className="button--full-width"
         onClick={() => toggleTheme()}
       >
         <ButtonIcon name={iconTheme} size="16" /> {nextTheme} theme
