@@ -39,12 +39,6 @@ const ContextualSide = () => {
     });
   };
 
-  // const TableHeader = ({ children }) => (
-  //   <th className="color-table__header">
-  //     <span>{children}</span>
-  //   </th>
-  // );
-
   return (
     <div>
       <div className="header-wrapper">
@@ -66,7 +60,6 @@ const ContextualSide = () => {
         style={{ background: cssHsla, color: invertColor(hex) }}
       >
         Sample
-        {/* {selectedColor.name} */}
       </div>
       <Table>
         <TableHeader>

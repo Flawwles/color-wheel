@@ -36,7 +36,8 @@ const ColorWheels = () => {
   );
 
   const { height, width } = useWindowDimensions();
-  const minSize = Math.min(height, width);
+  const minSize = Math.min(height, width - 367);
+  //367 = sidebar width
   const step = wheelStyles.wheelStep;
   const createSizes = (n) =>
     Array.from({ length: n }, (n, index) => minSize - (index + 1) * step);
