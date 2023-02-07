@@ -36,7 +36,7 @@ const EyeDropper = () => {
     });
     colorChip.current?.lastElementChild?.scrollIntoView();
 
-    setMessage(`Found ${findMatchingColor.length / 2} matches`);
+    setMessage(`Found ${findMatchingColor.length} matches`);
     setShowMessage(true);
   };
 
@@ -75,6 +75,7 @@ const EyeDropper = () => {
     if (e) {
       e.stopPropagation();
     }
+    console.log(masterColorList);
     setSearchForColor();
     masterColorList.forEach(
       (item) => (item.div.current.className = "color-wheel--dot--wrapper")
