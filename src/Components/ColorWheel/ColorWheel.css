@@ -41,17 +41,25 @@
   width: var(--dotSize);
   height: var(--dotSize);
   border-radius: var(--dotBorderRadius);
-  transition: box-shadow 0.3s ease;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
   outline-offset: 2px;
   outline: 0px solid var(--color-theme-background--shade-1);
   outline: 2px solid var(--color-theme-background--shade-1);
   outline: var(--dotOutlineStyle);
   outline-color: var(--color-theme-background--shade-3);
   background: var(--dotBackground);
+  transform: scale(1);
 }
 
 .color-wheel--dot:hover {
   box-shadow: 0 0 0 4px var(--dotBackground);
   /* outline: 2px solid var(--dotBackground); */
   outline-offset: none;
+}
+
+.color-wheel--dot--active {
+  /* border: 1px solid red; */
+  transform: scale(1.3);
+  box-shadow: 0 0 0 4px var(--dotBackground);
+  /* box-shadow: 0 0 0 6px black; */
 }

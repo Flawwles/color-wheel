@@ -26,8 +26,10 @@ const ColorWheelDot = ({ total, index, data }) => {
 
   const updateSidebar = (e) => {
     e.stopPropagation();
+    // console.log(e.target.classList.add("color-wheel--dot--active"));
     dispatch({
       type: "updateSidebar",
+      payload: e,
     });
 
     dispatch({
