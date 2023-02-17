@@ -24,7 +24,7 @@ const TableCellCopy = ({ children }) => {
       {showMessage ? (
         <Portal>
           <div className="notification--wrapper">
-            <div className="notification">Copied to clipboard</div>
+            <div className="notification">Copied {children} clipboard</div>
           </div>
         </Portal>
       ) : null}
