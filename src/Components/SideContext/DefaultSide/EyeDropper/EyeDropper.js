@@ -45,21 +45,6 @@ const EyeDropper = () => {
     return () => clearTimeout(timer);
   }, [showMessage]);
 
-  const escFunction = useCallback((event) => {
-    if (event.key === "Escape") {
-      console.log("CLOSE");
-      clearEyedropper();
-    }
-  }, []);
-
-  useEffect(() => {
-    document.addEventListener("keydown", escFunction, false);
-
-    return () => {
-      document.removeEventListener("keydown", escFunction, false);
-    };
-  }, [escFunction]);
-
   const pickColor = () => {
     open()
       .then((color) => {
@@ -71,13 +56,32 @@ const EyeDropper = () => {
       });
   };
 
-  const clearEyedropper = () => {
-    console.log(masterColorList);
+  const clearEyedropper = (clear) => {
+    console.log("CLEAR");
+    console.log(clear);
     setSearchForColor();
-    masterColorList.forEach(
+    clear.forEach(
       (item) => (item.div.current.className = "color-wheel--dot--wrapper")
     );
   };
+
+  const escFunction = useCallback(
+    (event) => {
+      if (event.key === "Escape") {
+        console.log("CLOSE");
+        clearEyedropper(masterColorList);
+      }
+    },
+    [masterColorList]
+  );
+
+  useEffect(() => {
+    document.addEventListener("keydown", escFunction, false);
+
+    return () => {
+      document.removeEventListener("keydown", escFunction, false);
+    };
+  }, [escFunction, masterColorList]);
   return (
     <div ref={colorChip}>
       <p>
@@ -119,7 +123,7 @@ const EyeDropper = () => {
             </div>
             <div>
               <IconButton
-                onClick={() => clearEyedropper()}
+                onClick={() => clearEyedropper(masterColorList)}
                 aria-label="close"
                 name="cross"
                 size="small"

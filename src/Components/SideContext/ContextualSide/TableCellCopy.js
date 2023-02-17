@@ -1,3 +1,4 @@
+import { AlertCard } from "@brandwatch/axiom-components";
 import { Portal } from "@reach/portal";
 import React, { useEffect, useState } from "react";
 
@@ -19,7 +20,11 @@ const TableCellCopy = ({ children }) => {
         className="table-cell-copy"
         onDoubleClick={() => copyToClipboard(children)}
       >
-        {children}
+        {children === "var(--missing)" || children === "--missing" ? (
+          <WarningMessage />
+        ) : (
+          children
+        )}
       </div>
       {showMessage ? (
         <Portal>
@@ -32,4 +37,11 @@ const TableCellCopy = ({ children }) => {
   );
 };
 
+const WarningMessage = () => (
+  <div>
+    <AlertCard size="small" type="error" shade="shade-4">
+      Not in current version of axiom
+    </AlertCard>
+  </div>
+);
 export default TableCellCopy;
