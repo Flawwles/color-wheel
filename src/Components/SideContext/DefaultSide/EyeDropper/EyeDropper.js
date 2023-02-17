@@ -71,10 +71,7 @@ const EyeDropper = () => {
       });
   };
 
-  const clearEyedropper = (e) => {
-    if (e) {
-      e.stopPropagation();
-    }
+  const clearEyedropper = () => {
     console.log(masterColorList);
     setSearchForColor();
     masterColorList.forEach(
@@ -109,9 +106,10 @@ const EyeDropper = () => {
       </Button>
       <div className="color-chip-wrapper">
         {searchForColor ? (
-          <div className="eye-dropper-color-chip" onClick={() => pickColor()}>
+          <div className="eye-dropper-color-chip">
             <div className="eye-dropper-color-chip--text">
               <span
+                onClick={() => pickColor()}
                 className="eye-dropper-color-swatch"
                 style={{
                   background: searchForColor,
@@ -121,7 +119,7 @@ const EyeDropper = () => {
             </div>
             <div>
               <IconButton
-                onClick={(e) => clearEyedropper(e)}
+                onClick={() => clearEyedropper()}
                 aria-label="close"
                 name="cross"
                 size="small"
