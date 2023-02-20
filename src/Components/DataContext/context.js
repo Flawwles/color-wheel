@@ -25,12 +25,12 @@ const initialState = {
 
 const handlers = {
   updateSidebar: (state, e) => {
-    state.masterColorList.forEach((item) => {
-      const activeItem = item.div.current.querySelectorAll(
-        ".color-wheel--dot--active"
-      )[0];
-      activeItem ? (activeItem.className = "color-wheel--dot") : null;
-    });
+    const activeItem = document.querySelectorAll(
+      ".color-wheel--dot--active"
+    )[0];
+
+    activeItem ? (activeItem.className = "color-wheel--dot") : null;
+
     e.target.classList.add("color-wheel--dot--active");
     return {
       ...state,
@@ -38,12 +38,10 @@ const handlers = {
     };
   },
   closeSidebar: (state) => {
-    state.masterColorList.forEach((item) => {
-      const activeItem = item.div.current.querySelectorAll(
-        ".color-wheel--dot--active"
-      )[0];
-      activeItem ? (activeItem.className = "color-wheel--dot") : null;
-    });
+    const activeItem = document.querySelectorAll(
+      ".color-wheel--dot--active"
+    )[0];
+    activeItem ? (activeItem.className = "color-wheel--dot") : null;
     return {
       ...state,
       sidebarContextual: false,
