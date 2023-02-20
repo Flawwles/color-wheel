@@ -24,7 +24,6 @@ const ColorWheels = () => {
   const themeColorsChromatic = themeColors.sort(
     (a, b) => a.values.h - b.values.h
   );
-
   const productColors1Chromatic = productColors1.sort(
     (a, b) => a.values.h - b.values.h
   );
@@ -34,6 +33,29 @@ const ColorWheels = () => {
   const attentionColorsChromatic = attentionColors.sort(
     (a, b) => a.values.h - b.values.h
   );
+
+  let colorSet1, colorSet2, colorSet3, colorSet4;
+
+  colorSet1 = productColors2Chromatic;
+  colorSet2 = productColors1Chromatic;
+  colorSet3 = attentionColorsChromatic;
+  colorSet4 = themeColorsChromatic;
+
+  if (wheelStyles.coreColors) {
+    const set1 = productColors2Chromatic.filter(
+      (color) => !color.name.includes("Active") && !color.name.includes("Hover")
+    );
+    const set2 = productColors1Chromatic.filter(
+      (color) => !color.name.includes("Active") && !color.name.includes("Hover")
+    );
+    const set3 = attentionColorsChromatic.filter(
+      (color) => !color.name.includes("Active") && !color.name.includes("Hover")
+    );
+    colorSet1 = [];
+    colorSet2 = [];
+    colorSet3 = [...set1, ...set2, ...set3];
+    colorSet4;
+  }
 
   const { height, width } = useWindowDimensions();
   const minSize = Math.min(height, width - 367);
@@ -49,10 +71,10 @@ const ColorWheels = () => {
       className="color-wheel--wrapper"
       onClick={() => updateSidebar()}
     >
-      <ColorWheel size={sizes[0]} data={productColors2Chromatic} />
-      <ColorWheel size={sizes[1]} data={productColors1Chromatic} />
-      <ColorWheel size={sizes[2]} data={attentionColorsChromatic} />
-      <ColorWheel size={sizes[3]} data={themeColorsChromatic} />
+      <ColorWheel size={sizes[0]} data={colorSet1} />
+      <ColorWheel size={sizes[1]} data={colorSet2} />
+      <ColorWheel size={sizes[2]} data={colorSet3} />
+      <ColorWheel size={sizes[3]} data={colorSet4} />
     </div>
   );
 };

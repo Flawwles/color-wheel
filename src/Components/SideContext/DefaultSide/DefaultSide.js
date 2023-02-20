@@ -30,6 +30,18 @@ const DefaultSide = () => {
     updateWheelStyles({ "--dotSize": dotSize });
   };
 
+  const coreColorsChange = (e) => {
+    let value;
+    value = e.target.checked;
+    if (value === undefined) {
+      value = e.target.input.checked;
+    }
+    const nextValue = value ? true : false;
+    updateWheelStyles({
+      coreColors: nextValue,
+    });
+  };
+
   const wheelStepChange = (e) => {
     const wheelStep = e.target.value;
     updateWheelStyles({ wheelStep: wheelStep });
@@ -103,8 +115,15 @@ const DefaultSide = () => {
           defaultValue={wheelStyles["dotOutline"]}
           onChange={(e) => dotOutlineChange(e)}
         />
-      </section>
 
+        <ToggleControl
+          name="Core colors only"
+          help="Hide active / hover colors"
+          defaultValue={wheelStyles["coreColors"]}
+          onChange={(e) => coreColorsChange(e)}
+        />
+      </section>
+      <br />
       <Separator borderStyle="dotted" />
       <h3>Theme settings</h3>
       <Button

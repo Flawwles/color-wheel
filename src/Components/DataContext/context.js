@@ -16,6 +16,7 @@ const initialState = {
     wheelStep: 150,
     dotOutline: false,
     "--dotOutlineStyle": "none",
+    coreColors: false,
   },
   tooltipDisplays: "name",
   searchForColor: "",
