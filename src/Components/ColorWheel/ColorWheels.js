@@ -53,7 +53,9 @@ const ColorWheels = () => {
     );
     colorSet1 = [];
     colorSet2 = [];
-    colorSet3 = [...set1, ...set2, ...set3];
+    colorSet3 = [...set1, ...set2, ...set3].sort(
+      (a, b) => a.values.h - b.values.h
+    );
     colorSet4;
   }
 
