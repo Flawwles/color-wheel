@@ -25,18 +25,31 @@ const EyeDropper = () => {
     });
   };
 
+  function findMatchesInRange(arr, target, range) {
+    return arr.reduce(function (matches, curr) {
+      const currDiff = Math.abs(curr.data.values.h - target);
+      if (currDiff <= range) {
+        matches.push(curr);
+      }
+      return matches;
+    }, []);
+  }
+
   const findMatch = (searchFor) => {
     const searchHue = hexToHue(searchFor);
-    const findMatchingColor = masterColorList.filter(
-      (color) => color.data.values.h === searchHue
-    );
-    findMatchingColor.forEach((matchingColor) => {
+    // const findMatchingColor = masterColorList.filter(
+    //   (color) => color.data.values.h === searchHue
+    // );
+
+    const matchingColor = findMatchesInRange(masterColorList, searchHue, 2);
+    console.log(matchingColor);
+    matchingColor.forEach((matchingColor) => {
       matchingColor.div.current.className =
         "color-wheel--dot--wrapper matched-color";
     });
     colorChip.current?.lastElementChild?.scrollIntoView();
 
-    setMessage(`Found ${findMatchingColor.length} matches`);
+    setMessage(`Found ${matchingColor.length} matches`);
     setShowMessage(true);
   };
 
