@@ -5,6 +5,7 @@ import { Button, IconButton } from "@brandwatch/axiom-components";
 import { useDispatch, useSelector } from "react-redux";
 import { hexToHue } from "../../../Utils";
 import { Portal } from "@reach/portal";
+import Slider from "./../Controls/Slider";
 
 const EyeDropper = () => {
   const [showMessage, setShowMessage] = useState(false);
@@ -15,7 +16,9 @@ const EyeDropper = () => {
 
   const searchForColor = useSelector((state) => state.searchForColor);
   const masterColorList = useSelector((state) => state.masterColorList);
+  const matchThreshold = useSelector((state) => state.matchThreshold);
 
+  console.log(matchThreshold);
   const dispatch = useDispatch();
 
   const setSearchForColor = (data) => {
@@ -37,16 +40,20 @@ const EyeDropper = () => {
 
   const findMatch = (searchFor) => {
     const searchHue = hexToHue(searchFor);
-    // const findMatchingColor = masterColorList.filter(
-    //   (color) => color.data.values.h === searchHue
-    // );
 
-    const matchingColor = findMatchesInRange(masterColorList, searchHue, 2);
-    console.log(matchingColor);
+    const matchingColor = findMatchesInRange(
+      masterColorList,
+      searchHue,
+      matchThreshold
+    );
+    masterColorList.forEach((color) => {
+      color.div.current.className = "color-wheel--dot--wrapper";
+    });
     matchingColor.forEach((matchingColor) => {
       matchingColor.div.current.className =
         "color-wheel--dot--wrapper matched-color";
     });
+
     colorChip.current?.lastElementChild?.scrollIntoView();
 
     setMessage(`Found ${matchingColor.length} matches`);
@@ -67,6 +74,14 @@ const EyeDropper = () => {
       .catch((e) => {
         if (!e.canceled) setError(e);
       });
+  };
+
+  const matchThresholdChange = (e) => {
+    dispatch({
+      type: "setMatchThreshold",
+      payload: e.target.value,
+    });
+    findMatch(searchForColor);
   };
 
   const clearEyedropper = (clear) => {
@@ -121,28 +136,37 @@ const EyeDropper = () => {
         </svg>
         Open eyedropper
       </Button>
-      <div className="color-chip-wrapper">
+      <div className="color-match">
         {searchForColor ? (
-          <div className="eye-dropper-color-chip">
-            <div className="eye-dropper-color-chip--text">
-              <span
-                onClick={() => pickColor()}
-                className="eye-dropper-color-swatch"
-                style={{
-                  background: searchForColor,
-                }}
-              ></span>
-              {searchForColor}
+          <section className="controls">
+            <Slider
+              name="Match Threshold (0 is exact match)"
+              min="0"
+              max="360"
+              defaultValue={matchThreshold}
+              onChange={(e) => matchThresholdChange(e)}
+            />
+            <div className="eye-dropper-color-chip">
+              <div className="eye-dropper-color-chip--text">
+                <span
+                  onClick={() => pickColor()}
+                  className="eye-dropper-color-swatch"
+                  style={{
+                    background: searchForColor,
+                  }}
+                ></span>
+                {searchForColor}
+              </div>
+              <div>
+                <IconButton
+                  onClick={() => clearEyedropper(masterColorList)}
+                  aria-label="close"
+                  name="cross"
+                  size="small"
+                />
+              </div>
             </div>
-            <div>
-              <IconButton
-                onClick={() => clearEyedropper(masterColorList)}
-                aria-label="close"
-                name="cross"
-                size="small"
-              />
-            </div>
-          </div>
+          </section>
         ) : (
           ""
         )}

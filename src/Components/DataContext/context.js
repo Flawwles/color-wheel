@@ -21,6 +21,7 @@ const initialState = {
   tooltipDisplays: "name",
   searchForColor: "",
   masterColorList: [],
+  matchThreshold: 5,
 };
 
 const handlers = {
@@ -63,6 +64,12 @@ const handlers = {
     return {
       ...state,
       searchForColor: payload,
+    };
+  },
+  setMatchThreshold: (state, payload) => {
+    return {
+      ...state,
+      matchThreshold: payload,
     };
   },
   updateMasterColorList: (state, payload) => {
