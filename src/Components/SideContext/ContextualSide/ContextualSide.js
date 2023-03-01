@@ -120,7 +120,7 @@ const ContextualSide = () => {
             </TableCell>
           </TableRow>
           <TableRow>
-            <TableCell>Alplha</TableCell>
+            <TableCell>Alpha</TableCell>
             <TableCell>
               <TableCellCopy>{selectedColor.values.a}</TableCellCopy>
             </TableCell>
